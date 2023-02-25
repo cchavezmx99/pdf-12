@@ -1,4 +1,3 @@
-import { NextApiHandler } from 'next'
 import pdfGenerator from '../../utils/html2pdf.js'
 // import pdfGenerator from 'html2pdf-containers'
 // import fetch from 'node-fetch'
@@ -20,7 +19,7 @@ import pdfGenerator from '../../utils/html2pdf.js'
 //   }
 // `
 
-const Handler: NextApiHandler = async (req, res) => {  
+export default async function handledr (req, res) {  
     try {
       const { numContainers, station, country } = req.body
       try {
@@ -68,5 +67,3 @@ const Handler: NextApiHandler = async (req, res) => {
     }
 
 }
-
-export default Handler
