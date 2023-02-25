@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/pdfgenerate.js": {
+    "pages/api/pdfgenerate.js": {
       "memory": 3008,
       "maxDuration": 60
     }    
