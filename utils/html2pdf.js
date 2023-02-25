@@ -1,0 +1,130 @@
+import qr from 'qrcode'
+import playwright from 'playwright-core'
+import chromium from 'chrome-aws-lambda'
+
+const html2pdf = async (containers, country, station) => {  
+  console.log("🚀 ~ file: html2pdf.js:86 ~ html2pdf ~ containers", await chromium.executablePath)
+  const browser = await playwright.chromium.launch({ 
+    headless: chromium.headless,
+    args: chromium.args,
+    executablePath: await chromium.executablePath,
+    ignoreHTTPSErrors: true,
+    defaultViewport: chromium.defaultViewport,
+    ignoreDefaultArgs: chromium.ignoreDefaultArgs,
+  })
+  const page = await browser.newPage()
+  const qrMaker = async (counter) => {
+    const qrCode = qr.toString(counter, {
+      type: 'svg'
+    })
+    return qrCode
+  }
+
+  const htmlPromise = containers.map(async ({ id, tag }, index) => {
+    const qrCode = await qrMaker(id)
+    if (index % 2 === 0) {
+      return `
+      <div style="break-after: avoid-page;">
+        <h1>${tag}</h1>
+        <p>${station}</p>        
+        <picture>
+          ${qrCode}
+        </picture>
+        <span style="border-bottom: 1px solid black; width: 100vw;"></span>
+      </div>          
+      `
+    } else {
+      return `
+      <div style="break-after: avoid-page;">
+        <h1>${tag}</h1>
+        <p>${station}</p>
+        <picture>
+          ${qrCode}
+        </picture>
+      </div>          
+      `
+    }
+  })
+
+  const htmlString = await Promise.all(htmlPromise)
+
+  try {
+    const hmtlGET = `
+    <!DOCTYPE html>        
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>PDF Result Template</title>
+        <style>
+          body {
+            display: grid;  
+            justify-content: center;        
+            position: relative;            
+          }
+
+          img, picture, svg{            
+            height: 10cm;
+            width: 10cm;
+          }
+
+          h1 {
+            font-size: 6rem;
+            margin: 0;
+            padding: 0;
+          }
+
+          p {
+            font-size: 1.5rem;
+            margin: 0;
+            padding: 0;
+          }
+
+          hr {
+            width: 100vh;
+            height: 2px;
+            background-color: black;
+          }
+
+          div {
+            display: grid;
+            place-items: center;
+          }
+
+        </style>
+      </head>
+      <body>        
+      ${htmlString.join('')}
+      </body>
+    </html>
+    `
+    console.log("🚀 ~ file: html2pdf.js:86 ~ html2pdf ~ hmtlGET:", hmtlGET)
+    await page.setContent(hmtlGET)
+
+    const pdf = await page.pdf({
+      height: '297mm',
+      width: '210mm',
+      printBackground: true,
+
+      margin: {
+        left: 0,
+        top: 2,
+        right: 0,
+        bottom: 0
+      }
+    })
+
+    await browser.close()
+    // convert pdf to base64
+    const base64 = pdf.toString('base64')
+    return { pdf: base64 }
+  } catch (error) {
+    throw new GraphQLError('Error in pdfGenerator.js')
+  }
+}
+
+const pdfGenerator = async (containers, country, station) => {
+  const { pdf } = await html2pdf(containers, country, station)  
+  return pdf
+}
+
+export default pdfGenerator
