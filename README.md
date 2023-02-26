@@ -43,26 +43,4 @@ El proyecto de generación de PDF desde la serverles function de Vercel, se debe
 
 ## Uso
 
-- Desde un paquete npm
-
-La forma mas sencilla de usar esta librería es a través de un paquete npm, para instalarlo se debe ejecutar el siguiente comando:
-
-```bash
-  npm i serverless-pdf-generator
-```
-
-Importar la funcion y ejecutar enviando los siguientes parametros:
-
-```javascript
-
-  import { pdfGenerator } from 'serverless-pdf-generator'
-
-  await pdfGenerator(containers, country, station)</p>
-
-```
-
-- Desde un axios o fetch con una petición de tipo POST, desde la url de este proyecto con los mismos parametros que se envian en el body de la petición.
-
-  - containers: Array
-  - country: String
-  - station: String
+## [Documentación](https://serverless-pdf-generator-ten.vercel.app/)
