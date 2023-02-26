@@ -57,8 +57,7 @@ export default function Home() {
 
   const code = `
   const [loading, setLoading] = useState(false)  
-  const handlerTestPDF = (e) => {
-    e.preventDefault()
+  const handlerTestPDF = () => {
     setLoading(true)
 
     fetch('https://serverless-pdf-generator-ten.vercel.app/api/pdfgenerate', {    
