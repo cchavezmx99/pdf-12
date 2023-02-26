@@ -4,5 +4,11 @@
       "memory": 3008,
       "maxDuration": 60
     }    
+  },
+  "headers": {
+    "Access-Control-Allow-Origin": "http://localhost:3000",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, Content-Length, X-Requested-With",
+    "Access-Control-Allow-Credentials": "true"
   }
 }
