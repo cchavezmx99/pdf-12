@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useState } from 'react'
+import Prism from 'prismjs'
 
 const containers = [ 
   { id: '871f2f28-0581-45bb-9c6f-408ec1e58854', tag: 'XVN-988' },
@@ -54,6 +55,38 @@ export default function Home() {
     .catch(err => console.log(err))
   }
 
+  const code = `
+  const [loading, setLoading] = useState(false)  
+  const handlerTestPDF = (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    fetch('https://serverless-pdf-generator-ten.vercel.app/api/pdfgenerate', {    
+      method: 'POST',
+      body: JSON.stringify({
+        "country": "MEX",
+        "station": "MX5",
+        containers: [ 
+          { id: '871f2f28-0581-45bb-9c6f-408ec1e58854', tag: 'XVN-988' }
+        ],
+      }),
+      headers: {
+        'Content-Type': 'application/json',      
+      }
+    }).then(res => res.json())
+      .then(({ pdfUrl }) => {      
+        const base64 = Buffer.from(pdfUrl, 'base64')
+        const blob = new Blob([base64], { type: 'application/pdf' })
+        const url = window.URL.createObjectURL(blob)
+        window.open(url)
+        setLoading(false)
+    })
+
+    .catch(err => console.log(err))
+  }
+  `
+  const html = Prism.highlight(code, Prism.languages.javascript, 'javascript')
+
   return (
     <>
       <Head>
@@ -83,58 +116,32 @@ export default function Home() {
             </button>    
             </form>
           </div>
-        <div className='npm'>
-            <h3>Instalación</h3>
-            <span className='instalacion'>
-              <p>npm i serverless-pdf-generator</p> 
-            </span>
-          </div>
-          <hr />
-          <div className='instrucciones'>
-            <h3>Uso</h3>
-            <p>
-              El paquete de npm serverless-pdf-generator, es un paquete que genera un PDF con la información de los contenedores,
-              y lo descarga en el navegador.
-            </p>            
-            <span className='uso'>
-              <p>import pdfGenerator from &apos;serverless-pdf-generator&lsquo; </p>
-              <p>const pdf = await pdfGenerator(containers, country, station)</p>              
-            </span>
-            <section className='parametros'>
-              <h3>Parámetros</h3>              
-              <p>
-                <span className='parametro'>containers</span> - Array de objetos con la información de los contenedores
-              </p>
-              <p>
-                <span className='parametro'>country</span> - String con el código del país
-              </p>
-              <p>
-                <span className='parametro'>station</span> - String con el código de la estación              
-              </p>
-            </section>
-          </div>
-          <hr />
+          <hr />          
           <div>
-            <h3>Desde axios o fetch (POST)</h3>            
+            <h3>¿Comó usarlo?</h3>            
             <p>
-              Desde un axios o fetch con una petición de tipo POST,
-              desde la url de este proyecto con los mismos parametros que se envian en el body de la petición.              
+              Desde un axios o fetch con una petición de tipo POST.                         
             </p>
             <span className='instalacion'>
-              https://serverless-pdf-generator.vercel.app/api/pdfgenerate
+              https://serverless-pdf-generator-ten.vercel.app/api/pdfgenerate
             </span>
             <h3>Parámetros</h3>
-            <div className='parametros'>
-              <p>
-                <span>containers:</span> Array
-              </p>
-              <p>
-                <span>country:</span> String
-              </p>
-              <p>
-                <span>station:</span> String
-              </p>
-            </div>
+              <div className='parametros' style={{ marginLeft: 30 }}>
+                <p><span>containers:</span> Array</p>
+                <p><span>country:</span> String</p>
+                <p><span>station:</span> String</p>
+              </div>
+            <h3>Respuesta</h3>
+             <div className='parametros' style={{ marginLeft: 30 }}>
+                <p><span>pdfUrl:</span> Base 64</p>
+              </div>
+
+            <hr />
+
+            <h3>Ejemplo: Descarga automática</h3>
+            <code className='code'>
+              <pre className='code-styles' dangerouslySetInnerHTML={{ __html: html }} />
+            </code>
           </div>
         </div>
         <div>

@@ -236,3 +236,24 @@ button {
     min-width: 400px;
   }
 }
+
+.code-styles {
+  background-color: #011627;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.function {
+  color: #85c440;
+}
+
+.keyword {
+  color: #ff9f1c;
+}
+
+.punctuation {
+  color: #fff;
+}
