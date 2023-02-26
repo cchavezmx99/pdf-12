@@ -1,5 +1,5 @@
 import Head from 'next/head'
-
+import { useState } from 'react'
 
 const containers = [ 
   { id: '871f2f28-0581-45bb-9c6f-408ec1e58854', tag: 'XVN-988' },
@@ -24,31 +24,36 @@ const containers = [
   { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1008' },
   ]
 
-const handlerTestPDF = (e) => {
-  e.preventDefault()
-  
-  fetch('/api/pdfgenerate', {    
-    method: 'POST',
-    body: JSON.stringify({
-      "country": "MEX",
-      containers,
-      "station": "MX5"
-    }),
-    headers: {
-      'Content-Type': 'application/json',      
-    }
-  }).then(res => res.json())
-    .then(({ pdfUrl }) => {      
-      const base64 = Buffer.from(pdfUrl, 'base64')
-      const blob = new Blob([base64], { type: 'application/pdf' })
-      const url = window.URL.createObjectURL(blob)
-      window.open(url)
-  })
-  .catch(err => console.log(err))
-}
-
-
 export default function Home() {
+
+
+  const [loading, setLoading] = useState(false)  
+  const handlerTestPDF = (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    fetch('/api/pdfgenerate', {    
+      method: 'POST',
+      body: JSON.stringify({
+        "country": "MEX",
+        containers,
+        "station": "MX5"
+      }),
+      headers: {
+        'Content-Type': 'application/json',      
+      }
+    }).then(res => res.json())
+      .then(({ pdfUrl }) => {      
+        const base64 = Buffer.from(pdfUrl, 'base64')
+        const blob = new Blob([base64], { type: 'application/pdf' })
+        const url = window.URL.createObjectURL(blob)
+        window.open(url)
+        setLoading(false)
+    })
+
+    .catch(err => console.log(err))
+  }
+
   return (
     <>
       <Head>
@@ -70,9 +75,12 @@ export default function Home() {
               atravez de una serverless function de Vercel, generar un PDF con la información de los contenedores              
             </p>
             <form onSubmit={handlerTestPDF}>
-              <button type='submit'>
-                Generar PDF PRUEBA
-              </button>    
+            <button>
+              <div className="container">
+                { loading && <div className="bar"></div>}
+              </div>
+              <span>Generar PDF</span>
+            </button>    
             </form>
           </div>
         <div className='npm'>
