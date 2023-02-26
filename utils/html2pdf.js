@@ -11,7 +11,7 @@ const html2pdf = async (containers, country, station) => {
     headless: true,
     ignoreHTTPSErrors: true,
   })
-
+  
   const page = await browser.newPage()
   const qrMaker = async (counter) => {
     const qrCode = qr.toString(counter, {
@@ -100,7 +100,7 @@ const html2pdf = async (containers, country, station) => {
       </body>
     </html>
     `    
-    await page.setContent(hmtlGET)
+    await page.setContent(hmtlGET)    
     const pdf = await page.pdf({
       format: 'Letter',
       printBackground: true,
@@ -123,6 +123,7 @@ const html2pdf = async (containers, country, station) => {
 
 const pdfGenerator = async (containers, country, station) => {
   const { pdf } = await html2pdf(containers, country, station)  
+  console.log("🚀 ~ file: html2pdf.js:126 ~ pdfGenerator ~ pdf:", pdf)
   return pdf
 }
 

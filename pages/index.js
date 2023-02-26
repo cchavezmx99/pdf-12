@@ -27,14 +27,6 @@ const containers = [
 const handlerTestPDF = (e) => {
   e.preventDefault()
   
-  const form = new FormData(e.currentTarget)
-  const { test } = Object.fromEntries(form)
-
-  if (Number(test) < 1) {
-    alert('El número de contenedores debe ser mayor a 0')
-    return
-  }
-  
   fetch('/api/pdfgenerate', {    
     method: 'POST',
     body: JSON.stringify({
@@ -46,7 +38,7 @@ const handlerTestPDF = (e) => {
       'Content-Type': 'application/json',      
     }
   }).then(res => res.json())
-    .then(({ pdfUrl }) => {
+    .then(({ pdfUrl }) => {      
       const base64 = Buffer.from(pdfUrl, 'base64')
       const blob = new Blob([base64], { type: 'application/pdf' })
       const url = window.URL.createObjectURL(blob)
