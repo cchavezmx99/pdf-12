@@ -2,16 +2,16 @@ import qr from 'qrcode'
 import playwright from 'playwright-core'
 import chromium from 'chrome-aws-lambda'
 
-const html2pdf = async (containers, country, station) => {  
-  console.log("🚀 ~ file: html2pdf.js:86 ~ html2pdf ~ containers", await chromium.executablePath)
+const html2pdf = async (containers, country, station) => {
+  
   const browser = await playwright.chromium.launch({ 
-    headless: chromium.headless,
-    args: chromium.args,
-    executablePath: await chromium.executablePath,
-    ignoreHTTPSErrors: true,
+    args: [ '--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote' ],
     defaultViewport: chromium.defaultViewport,
-    ignoreDefaultArgs: chromium.ignoreDefaultArgs,
+    executablePath: await chromium.executablePath,
+    headless: true,
+    ignoreHTTPSErrors: true,
   })
+
   const page = await browser.newPage()
   const qrMaker = async (counter) => {
     const qrCode = qr.toString(counter, {
@@ -63,8 +63,10 @@ const html2pdf = async (containers, country, station) => {
           }
 
           img, picture, svg{            
-            height: 10cm;
-            width: 10cm;
+            height: 9.8cm;
+            width: 9.8cm;
+            padding: 0;
+            margin: 0;
           }
 
           h1 {
@@ -88,6 +90,7 @@ const html2pdf = async (containers, country, station) => {
           div {
             display: grid;
             place-items: center;
+            height: calc(100vh / 2 );
           }
 
         </style>
@@ -96,18 +99,14 @@ const html2pdf = async (containers, country, station) => {
       ${htmlString.join('')}
       </body>
     </html>
-    `
-    console.log("🚀 ~ file: html2pdf.js:86 ~ html2pdf ~ hmtlGET:", hmtlGET)
+    `    
     await page.setContent(hmtlGET)
-
     const pdf = await page.pdf({
-      height: '297mm',
-      width: '210mm',
+      format: 'Letter',
       printBackground: true,
-
       margin: {
         left: 0,
-        top: 2,
+        top: 0,
         right: 0,
         bottom: 0
       }

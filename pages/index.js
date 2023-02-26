@@ -1,8 +1,32 @@
 import Head from 'next/head'
 
+
+const containers = [ 
+  { id: '871f2f28-0581-45bb-9c6f-408ec1e58854', tag: 'XVN-988' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f25', tag: 'XVN-989' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f26', tag: 'XVN-990' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-992' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-993' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-994' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-995' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-996' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-997' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-998' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-999' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1000' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1001' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1002' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1003' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1004' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1005' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1006' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1007' },
+  { id: 'f241f0eb-b940-48f6-8c14-6b4744e17f27', tag: 'XVN-1008' },
+  ]
+
 const handlerTestPDF = (e) => {
   e.preventDefault()
-
+  
   const form = new FormData(e.currentTarget)
   const { test } = Object.fromEntries(form)
 
@@ -15,7 +39,7 @@ const handlerTestPDF = (e) => {
     method: 'POST',
     body: JSON.stringify({
       "country": "MEX",
-      "numContainers": Number(test),
+      containers,
       "station": "MX5"
     }),
     headers: {
@@ -31,6 +55,7 @@ const handlerTestPDF = (e) => {
   .catch(err => console.log(err))
 }
 
+
 export default function Home() {
   return (
     <>
@@ -41,17 +66,80 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>
-          <h1>
-            Generador de PDF con Next.js y Playwright            
-          </h1>          
-          <form onSubmit={handlerTestPDF}>            
-            <input type="number" name="test" width="100px" defaultValue="1"/>          
-            <button>
-              Generar PDF PRUEBA
-            </button>    
-          </form>
+        <header>
+            <h1>
+              PDF con Next.js y Playwright
+            </h1>          
+        </header>
+        <div>          
+          <div className='introduccion'>
+            <p>
+              Este proyecto es una prueba de concepto para generar PDFs con Next.js y Playwright.
+              atravez de una serverless function de Vercel, generar un PDF con la información de los contenedores              
+            </p>
+            <form onSubmit={handlerTestPDF}>
+              <button type='submit'>
+                Generar PDF PRUEBA
+              </button>    
+            </form>
+          </div>
+        <div className='npm'>
+            <h3>Instalación</h3>
+            <span className='instalacion'>
+              <p>npm i serverless-pdf-generator</p> 
+            </span>
+          </div>
+          <hr />
+          <div className='instrucciones'>
+            <h3>Uso</h3>
+            <p>
+              El paquete de npm serverless-pdf-generator, es un paquete que genera un PDF con la información de los contenedores,
+              y lo descarga en el navegador.
+            </p>            
+            <span className='uso'>
+              <p>import pdfGenerator from &apos;serverless-pdf-generator&lsquo; </p>
+              <p>const pdf = await pdfGenerator(containers, country, station)</p>              
+            </span>
+            <section className='parametros'>
+              <h3>Parámetros</h3>              
+              <p>
+                <span className='parametro'>containers</span> - Array de objetos con la información de los contenedores
+              </p>
+              <p>
+                <span className='parametro'>country</span> - String con el código del país
+              </p>
+              <p>
+                <span className='parametro'>station</span> - String con el código de la estación              
+              </p>
+            </section>
+          </div>
+          <hr />
+          <div>
+            <h3>Desde axios o fetch (POST)</h3>            
+            <p>
+              Desde un axios o fetch con una petición de tipo POST,
+              desde la url de este proyecto con los mismos parametros que se envian en el body de la petición.              
+            </p>
+            <span className='instalacion'>
+              https://serverless-pdf-generator.vercel.app/api/pdfgenerate
+            </span>
+            <h3>Parámetros</h3>
+            <div className='parametros'>
+              <p>
+                <span>containers:</span> Array
+              </p>
+              <p>
+                <span>country:</span> String
+              </p>
+              <p>
+                <span>station:</span> String
+              </p>
+            </div>
+          </div>
         </div>
+        <div>
+        </div>
+        <footer></footer>                
       </main>
     </>
   )
