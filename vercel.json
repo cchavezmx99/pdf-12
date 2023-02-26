@@ -9,10 +9,10 @@
     {
       "source": "pages/api/pdfgenerate.js",
       "headers": [
-        { "Access-Control-Allow-Origin": "http://localhost:3000"} ,
-        { "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS"} ,
-        { "Access-Control-Allow-Headers": "Content-Type, Authorization, Content-Length, X-Requested-With"} ,
-        { "Access-Control-Allow-Credentials": "true" }
+        { "key": "Access-Control-Allow-Credentials", "value": "true" },
+        { "key": "Access-Control-Allow-Origin", "value": "http://localhost:3000" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
       ]
     }
   ]
