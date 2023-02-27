@@ -121,9 +121,6 @@ export default function Home() {
             <p>
               Desde un axios o fetch con una petición de tipo POST.            
             </p>
-            <p>
-              Se requiere añaadir el header <span>Origin</span> con el dominio de la aplicación que lo consuma.
-            </p>
             <span className='instalacion'>
               https://serverless-pdf-generator-ten.vercel.app/api/pdfgenerate
             </span>
