@@ -4,8 +4,14 @@ const witheList = process.env.WHITE_LISTED_DOMAINS.split(',') || []
 const allowCors = fn => async (req, res) => {
 
   console.log("🚀 ~ file: pdfgenerate.js:22 ~ allowCors ~ req.headers.origin", req.headers.origin)
+  let isValid = null
+  witheList.forEach(origin => {    
+    isValid = req.headers.origin
+      .split('-')
+      .some(word => origin.includes(word))
+  })
 
-  if (witheList.includes(req.headers.origin)) {
+  if (isValid) {
     res.setHeader('Access-Control-Allow-Credentials', true)
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin)
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
