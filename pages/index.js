@@ -70,8 +70,7 @@ export default function Home() {
         ],
       }),
       headers: {
-        'Content-Type': 'application/json',
-        Orgin: 'http://ejemplo.com/'
+        'Content-Type': 'application/json'
       }
     }).then(res => res.json())
       .then(({ pdfUrl }) => {      
@@ -138,11 +137,7 @@ export default function Home() {
              <div className='parametros' style={{ marginLeft: 30 }}>
                 <p><span>pdfUrl:</span> Base 64</p>
               </div>
-            <h3>Headers</h3>
-            <div className='parametros' style={{ marginLeft: 30 }}>
-                <p><span>Origin:</span> http://ejemplo.com/</p>
-            </div>
-
+              
             <hr />
 
             <h3>Ejemplo: Descarga automática</h3>
