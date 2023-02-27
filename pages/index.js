@@ -70,7 +70,8 @@ export default function Home() {
         ],
       }),
       headers: {
-        'Content-Type': 'application/json',      
+        'Content-Type': 'application/json',
+        Orgin: 'http://ejemplo.com/'
       }
     }).then(res => res.json())
       .then(({ pdfUrl }) => {      
@@ -119,7 +120,10 @@ export default function Home() {
           <div>
             <h3>¿Comó usarlo?</h3>            
             <p>
-              Desde un axios o fetch con una petición de tipo POST.                         
+              Desde un axios o fetch con una petición de tipo POST.            
+            </p>
+            <p>
+              Se requiere añaadir el header <span>Origin</span> con el dominio de la aplicación que lo consuma.
             </p>
             <span className='instalacion'>
               https://serverless-pdf-generator-ten.vercel.app/api/pdfgenerate
@@ -134,6 +138,10 @@ export default function Home() {
              <div className='parametros' style={{ marginLeft: 30 }}>
                 <p><span>pdfUrl:</span> Base 64</p>
               </div>
+            <h3>Headers</h3>
+            <div className='parametros' style={{ marginLeft: 30 }}>
+                <p><span>Origin:</span> http://ejemplo.com/</p>
+            </div>
 
             <hr />
 

@@ -122,8 +122,7 @@ const html2pdf = async (containers, country, station) => {
 }
 
 const pdfGenerator = async (containers, country, station) => {
-  const { pdf } = await html2pdf(containers, country, station)  
-  console.log("🚀 ~ file: html2pdf.js:126 ~ pdfGenerator ~ pdf:", pdf)
+  const { pdf } = await html2pdf(containers, country, station)
   return pdf
 }
 
