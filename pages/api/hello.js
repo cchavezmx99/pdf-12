@@ -16,7 +16,7 @@ async function handler (req, res) {
     VERCEL_GIT_PULL_REQUEST_ID: process.env.VERCEL_GIT_PULL_REQUEST_ID,    
   }
 
-  const testVercelProcessEnvsString = Object.entries(testVercelProcessEnvs).map(([key, value]) => `${key}: ${value}`).join('\n')
+  const testVercelProcessEnvsString = Object.entries(testVercelProcessEnvs).map(([key, value]) => `${key}: ${value}`)
   return res.status(200).json({ testVercelProcessEnvsString })
 }
 
