@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import Prism from 'prismjs'
+import Image from 'next/image'
 
 const containers = [ 
   { id: '871f2f28-0581-45bb-9c6f-408ec1e58854', tag: 'XVN-988' },
@@ -95,25 +96,35 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <header>
+        <header style={{ padding: '0 8px' }}>
             <h1>
-              PDF con Next.js y Playwright
+              Serverless PDF Generator
             </h1>          
         </header>
         <div>          
           <div className='introduccion'>
-            <p>
-              Este proyecto es una prueba de concepto para generar PDFs con Next.js y Playwright.
-              atravez de una serverless function de Vercel, generar un PDF con la información de los contenedores              
-            </p>
-            <form onSubmit={handlerTestPDF}>
-            <button>
-              <div className="container">
-                { loading && <div className="bar"></div>}
-              </div>
-              <span>Generar PDF</span>
-            </button>    
-            </form>
+            <section style={{ flexBasis: '80%', display: 'flex', padding: '10px', margin: '10px'}}>
+              <Image src="/99logo.png" alt="logo de 99 minutos" width={260} height={80} objectFit="cover" />
+              <p>
+                Este proyecto nos ayuda a generar PDFs con <span style={{ fontWeight: 'bold' }}>Next.js y Playwright</span>{" "}
+                 por medio de una serverless function de Vercel, generar un PDF con la información de los contenedores.
+              </p>
+            </section>
+            <section style={{
+              padding: '10px',
+              flex: 2,
+            }}>
+              <form onSubmit={handlerTestPDF}>
+              <button style={{
+                width: "400px"
+              }}>
+                <div className="container">
+                  { loading && <div className="bar"></div>}
+                </div>
+                <span>Generar PDF</span>
+              </button>    
+              </form>
+            </section>
           </div>
           <hr />          
           <div>
