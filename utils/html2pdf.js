@@ -1,13 +1,13 @@
 import qr from 'qrcode'
 import playwright from 'playwright-core'
-import chromium from 'chrome-aws-lambda'
+import chromium from '@sparticuz/chromium';
 
 const html2pdf = async (containers, country, station) => {
   
 const browser = await playwright.chromium.launch({
     args: chromium.args,
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless === 'true',
   });
   
   const page = await browser.newPage()
