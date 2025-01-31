@@ -117,6 +117,7 @@ const html2pdf = async (containers, country, station) => {
     const base64 = pdf.toString('base64')
     return { pdf: base64 }
   } catch (error) {
+    console.log(error)
     throw new GraphQLError('Error in pdfGenerator.js')
   }
 }

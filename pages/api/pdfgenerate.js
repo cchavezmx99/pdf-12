@@ -42,6 +42,7 @@ async function handledr (req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
      
   } catch (error) {
+    console.log({error})
     return res.status(500).json({ error: error.message })
   }   
 
