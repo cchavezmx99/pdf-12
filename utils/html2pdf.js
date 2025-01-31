@@ -1,6 +1,6 @@
 import qr from 'qrcode'
 import playwright from 'playwright-core'
-import chromium from '@sparticuz/chromium-min'
+import chromium from '@sparticuz/chromium'
 
 const html2pdf = async (containers, country, station) => {
   
