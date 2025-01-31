@@ -1,27 +1,26 @@
-import qr from 'qrcode'
-import playwright from 'playwright-core'
-import chromium from '@sparticuz/chromium'
+import qr from "qrcode";
+import playwright from "playwright-core";
+import chromium from "@sparticuz/chromium";
 
 const html2pdf = async (containers, country, station) => {
-  
-  const browser = await playwright.chromium.launch({ 
-    args: [ '--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote' ],
+  const browser = await playwright.chromium.launch({
+    args: ["--disable-gpu", "--no-sandbox", "--single-process", "--no-zygote"],
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
+    executablePath: await chromium.executablePath("/opt/chromium"),
     headless: true,
     ignoreHTTPSErrors: true,
-  })
-  
-  const page = await browser.newPage()
+  });
+
+  const page = await browser.newPage();
   const qrMaker = async (counter) => {
     const qrCode = qr.toString(counter, {
-      type: 'svg'
-    })
-    return qrCode
-  }
+      type: "svg",
+    });
+    return qrCode;
+  };
 
   const htmlPromise = containers.map(async ({ id, tag }, index) => {
-    const qrCode = await qrMaker(id)
+    const qrCode = await qrMaker(id);
     if (index % 2 === 0) {
       return `
       <div style="break-after: avoid-page;">
@@ -32,7 +31,7 @@ const html2pdf = async (containers, country, station) => {
         </picture>
         <span style="border-bottom: 1px solid black; width: 100vw;"></span>
       </div>          
-      `
+      `;
     } else {
       return `
       <div style="break-after: avoid-page;">
@@ -42,11 +41,11 @@ const html2pdf = async (containers, country, station) => {
           ${qrCode}
         </picture>
       </div>          
-      `
+      `;
     }
-  })
+  });
 
-  const htmlString = await Promise.all(htmlPromise)
+  const htmlString = await Promise.all(htmlPromise);
 
   try {
     const hmtlGET = `
@@ -96,34 +95,34 @@ const html2pdf = async (containers, country, station) => {
         </style>
       </head>
       <body>        
-      ${htmlString.join('')}
+      ${htmlString.join("")}
       </body>
     </html>
-    `    
-    await page.setContent(hmtlGET)    
+    `;
+    await page.setContent(hmtlGET);
     const pdf = await page.pdf({
-      format: 'Letter',
+      format: "Letter",
       printBackground: true,
       margin: {
         left: 0,
         top: 0,
         right: 0,
-        bottom: 0
-      }
-    })
+        bottom: 0,
+      },
+    });
 
-    await browser.close()
+    await browser.close();
     // convert pdf to base64
-    const base64 = pdf.toString('base64')
-    return { pdf: base64 }
+    const base64 = pdf.toString("base64");
+    return { pdf: base64 };
   } catch (error) {
-    throw new GraphQLError('Error in pdfGenerator.js')
+    throw new GraphQLError("Error in pdfGenerator.js");
   }
-}
+};
 
 const pdfGenerator = async (containers, country, station) => {
-  const { pdf } = await html2pdf(containers, country, station)
-  return pdf
-}
+  const { pdf } = await html2pdf(containers, country, station);
+  return pdf;
+};
 
-export default pdfGenerator
+export default pdfGenerator;
