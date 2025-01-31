@@ -8,7 +8,7 @@ const html2pdf = async (containers, country, station) => {
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: chromium.executablePath("/opt/chromium"),
+    executablePath: chromium.executablePath("/var/task/node_modules/@sparticuz/chromium/build"),
     headless: chromium.headless === "true",
   });
 
