@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@sparticuz/chromium": "110.0.0",
+    "@sparticuz/chromium-min": "^132.0.0",
     "next": "12.0.7",
     "prismjs": "1.17.1",
     "puppeteer-core": "19.6.0",
