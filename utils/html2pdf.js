@@ -1,15 +1,14 @@
 import qr from "qrcode";
-import playwright from "playwright-core";
+import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 
 const html2pdf = async (containers, country, station) => {
-  const browser = await playwright.chromium.launch({
-    args: ["--disable-gpu", "--no-sandbox", "--single-process", "--no-zygote"],
+   const browser = await puppeteer.launch({
+    args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath("/opt/chromium"),
-    headless: true,
-    ignoreHTTPSErrors: true,
-  });
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless === "true",
+  });  
 
   const page = await browser.newPage();
   const qrMaker = async (counter) => {
