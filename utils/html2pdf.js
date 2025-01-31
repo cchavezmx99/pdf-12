@@ -7,7 +7,7 @@ const html2pdf = async (containers, country, station) => {
   const browser = await playwright.chromium.launch({ 
     args: [ '--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote' ],
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
+    executablePath: await chromium.executablePath(),
     headless: true,
     ignoreHTTPSErrors: true,
   })
