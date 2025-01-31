@@ -2,15 +2,13 @@ import qr from "qrcode";
 import * as puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 
-console.log(chromium)
+console.log(chromium);
 
 const html2pdf = async (containers, country, station) => {
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: chromium.executablePath(
-      "/opt/nodejs/node_modules/@sparticuz/chromium/bin",
-    ),
+    executablePath: chromium.executablePath("/opt/chromium"),
     headless: chromium.headless === "true",
   });
 
