@@ -1,15 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "pages/api/pdfgenerate.js",
-      "use": "@vercel/node"
+  "functions": {
+    "pages/api/pdfgenerate.js": {
+      "memory": 3008,
+      "maxDuration": 60
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
-  ]
+  }
 }
