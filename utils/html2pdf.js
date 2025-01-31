@@ -1,13 +1,13 @@
 import qr from 'qrcode'
 import playwright from 'playwright-core'
-import chromium from '@sparticuz/chromium'
+import chromium from '@sparticuz/chromium-min'
 
 const html2pdf = async (containers, country, station) => {
   
   const browser = await playwright.chromium.launch({ 
     args: [ '--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote' ],
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
+    executablePath: await chromium.executablePath("/opt/chromium"),
     headless: true,
     ignoreHTTPSErrors: true,
   })

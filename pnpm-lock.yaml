@@ -11,6 +11,9 @@ importers:
       '@sparticuz/chromium':
         specifier: ^132.0.0
         version: 132.0.0
+      '@sparticuz/chromium-min':
+        specifier: ^132.0.0
+        version: 132.0.0
       chrome-aws-lambda:
         specifier: 10.1.0
         version: 10.1.0(puppeteer-core@10.4.0)
@@ -305,6 +308,10 @@ packages:
 
   '@rushstack/eslint-patch@1.10.5':
     resolution: {integrity: sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==}
+
+  '@sparticuz/chromium-min@132.0.0':
+    resolution: {integrity: sha512-Wqz6DK0fkXNrcQ/POablGRoip4NVPYoZ8yYPuipKTox6sRGzGKTdhgNHS4yK1UUPc47IfP7Wm8hTPxyXI5zgmg==}
+    engines: {node: '>= 16'}
 
   '@sparticuz/chromium@132.0.0':
     resolution: {integrity: sha512-7SAhVa4nHAP7bxEhnMFuwV7KNDqAF4RVGZNwRhvyss8lJNT7Syi9nPwIPYvsHtjJ1S7Nx8OL8uqe9V3a/ED/Mg==}
@@ -2571,6 +2578,14 @@ snapshots:
 
   '@rushstack/eslint-patch@1.10.5': {}
 
+  '@sparticuz/chromium-min@132.0.0':
+    dependencies:
+      follow-redirects: 1.15.9
+      tar-fs: 3.0.8
+    transitivePeerDependencies:
+      - bare-buffer
+      - debug
+
   '@sparticuz/chromium@132.0.0':
     dependencies:
       follow-redirects: 1.15.9
@@ -2646,7 +2661,7 @@ snapshots:
 
   agent-base@6.0.2:
     dependencies:
-      debug: 4.3.1
+      debug: 4.4.0
     transitivePeerDependencies:
       - supports-color
 
@@ -3516,7 +3531,7 @@ snapshots:
 
   extract-zip@2.0.1:
     dependencies:
-      debug: 4.3.1
+      debug: 4.4.0
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -3768,7 +3783,7 @@ snapshots:
   https-proxy-agent@5.0.0:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.1
+      debug: 4.4.0
     transitivePeerDependencies:
       - supports-color
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@sparticuz/chromium": "^132.0.0",
+    "@sparticuz/chromium-min": "^132.0.0",
     "chrome-aws-lambda": "10.1.0",
     "next": "12.0.7",
     "playwright-core": "1.31.1",
