@@ -1,6 +1,6 @@
 import qr from "qrcode";
 import puppeteer from 'puppeteer-core';
-import chromium from '@sparticuz/chromium-min';
+import chromium from '@sparticuz/chromium';
 
 const html2pdf = async (containers, country, station) => {
   const isLocal = process.env.AWS_EXECUTION_ENV === undefined;
