@@ -13,7 +13,9 @@ const html2pdf = async (containers, country, station) => {
     ignoreHTTPSErrors: true,
   });
 
-  const page = await browser.newPage();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
   const qrMaker = async (counter) => {
     const qrCode = qr.toString(counter, {
       type: "svg",
@@ -113,6 +115,7 @@ const html2pdf = async (containers, country, station) => {
       },
     });
 
+    await context.close();
     await browser.close();
     // convert pdf to base64
     const base64 = pdf.toString("base64");
