@@ -1,13 +1,25 @@
 import qr from "qrcode";
 import playwright from "playwright-core";
 import chromium from "@sparticuz/chromium-min";
+import fs from "fs";
 
 const html2pdf = async (containers, country, station) => {
+  // Crear directorio temporal si no existe
+  const tmpDir = "/tmp/chromium-pack";
+  if (!fs.existsSync(tmpDir)) {
+    fs.mkdirSync(tmpDir, { recursive: true });
+  }
+
   const browser = await playwright.chromium.launch({
-    args: chromium.args,
+    args: [...chromium.args, '--disable-fonts'],
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath(
       "https://github.com/Sparticuz/chromium/releases/download/v110.0.1/chromium-v110.0.1-pack.tar",
+      {
+        revision: "1108766",
+        installPath: tmpDir,
+        forceDownload: true,
+      },
     ),
     headless: chromium.headless === "true",
     ignoreHTTPSErrors: true,
