@@ -68,14 +68,14 @@ const html2pdf = async (containers, country, station) => {
           }
 
           img, picture, svg{            
-            height: 9.8cm;
-            width: 9.8cm;
+            height: 8.5cm;
+            width: 8.5m;
             padding: 0;
             margin: 0;
           }
 
           h1 {
-            font-size: 6rem;
+            font-size: 5rem;
             margin: 0;
             padding: 0;
           }
@@ -127,8 +127,13 @@ const html2pdf = async (containers, country, station) => {
 };
 
 const pdfGenerator = async (containers, country, station) => {
-  const { pdf } = await html2pdf(containers, country, station);
-  return pdf;
+  try {
+    const { pdf } = await html2pdf(containers, country, station);
+    return pdf;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error in pdfGenerator.js");
+  }
 };
 
 export default pdfGenerator;

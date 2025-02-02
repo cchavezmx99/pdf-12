@@ -17,7 +17,6 @@ const allowCors = fn => async (req, res) => {
 
 
 async function handledr (req, res) {  
-    
   const { containers, country, station } = req.body  
   try {
 
