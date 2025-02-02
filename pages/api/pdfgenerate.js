@@ -38,7 +38,7 @@ async function handledr (req, res) {
       return res.status(200).json({ pdfUrl: pdf })
     }
 
-    return res.status(405).json({ error: 'Method not allowed' })
+    return res.status(405).json({ error: 'method not allowed' })
      
   } catch (error) {
     return res.status(500).json({ error: error.message })
