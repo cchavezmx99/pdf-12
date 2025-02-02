@@ -1,27 +1,34 @@
-import qr from 'qrcode'
-import playwright from 'playwright-core'
-import chromium from 'chrome-aws-lambda'
+import qr from "qrcode";
+import chromium from "@sparticuz/chromium-min";
+import puppeteer from "puppeteer";
 
 const html2pdf = async (containers, country, station) => {
-  
-  const browser = await playwright.chromium.launch({ 
-    args: [ '--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote' ],
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-    headless: true,
-    ignoreHTTPSErrors: true,
-  })
-  
-  const page = await browser.newPage()
+  const isLocal = process.env.AWS_EXECUTION_ENV === undefined;
+  const browser = isLocal
+    ? await require("puppeteer").launch()
+    : await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(
+        "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar",
+      ),
+      headless: chorium.headless,
+      ignoreHTTPSErrors: true,
+    });
+
+  console.log("Launching browser");
+  console.log("IsLocal", isLocal);
+  const page = await browser.newPage();
+
   const qrMaker = async (counter) => {
     const qrCode = qr.toString(counter, {
-      type: 'svg'
-    })
-    return qrCode
-  }
+      type: "svg",
+    });
+    return qrCode;
+  };
 
   const htmlPromise = containers.map(async ({ id, tag }, index) => {
-    const qrCode = await qrMaker(id)
+    const qrCode = await qrMaker(id);
     if (index % 2 === 0) {
       return `
       <div style="break-after: avoid-page;">
@@ -32,7 +39,7 @@ const html2pdf = async (containers, country, station) => {
         </picture>
         <span style="border-bottom: 1px solid black; width: 100vw;"></span>
       </div>          
-      `
+      `;
     } else {
       return `
       <div style="break-after: avoid-page;">
@@ -42,11 +49,11 @@ const html2pdf = async (containers, country, station) => {
           ${qrCode}
         </picture>
       </div>          
-      `
+      `;
     }
-  })
+  });
 
-  const htmlString = await Promise.all(htmlPromise)
+  const htmlString = await Promise.all(htmlPromise);
 
   try {
     const hmtlGET = `
@@ -63,14 +70,14 @@ const html2pdf = async (containers, country, station) => {
           }
 
           img, picture, svg{            
-            height: 9.8cm;
-            width: 9.8cm;
+            height: 8.5cm;
+            width: 8.5m;
             padding: 0;
             margin: 0;
           }
 
           h1 {
-            font-size: 6rem;
+            font-size: 5rem;
             margin: 0;
             padding: 0;
           }
@@ -96,34 +103,39 @@ const html2pdf = async (containers, country, station) => {
         </style>
       </head>
       <body>        
-      ${htmlString.join('')}
+      ${htmlString.join("")}
       </body>
     </html>
-    `    
-    await page.setContent(hmtlGET)    
+    `;
+    await page.setContent(hmtlGET);
     const pdf = await page.pdf({
-      format: 'Letter',
+      format: "Letter",
       printBackground: true,
       margin: {
         left: 0,
         top: 0,
         right: 0,
-        bottom: 0
-      }
-    })
+        bottom: 0,
+      },
+    });
 
-    await browser.close()
+    await browser.close();
     // convert pdf to base64
-    const base64 = pdf.toString('base64')
-    return { pdf: base64 }
+    const base64 = pdf.toString("base64");
+    return { pdf: base64 };
   } catch (error) {
-    throw new GraphQLError('Error in pdfGenerator.js')
+    throw new GraphQLError("Error in pdfGenerator.js");
   }
-}
+};
 
 const pdfGenerator = async (containers, country, station) => {
-  const { pdf } = await html2pdf(containers, country, station)
-  return pdf
-}
+  try {
+    const { pdf } = await html2pdf(containers, country, station);
+    return pdf;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error in pdfGenerator.js");
+  }
+};
 
-export default pdfGenerator
+export default pdfGenerator;
