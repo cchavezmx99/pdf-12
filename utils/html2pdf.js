@@ -1,5 +1,4 @@
 import qr from "qrcode";
-import playwright from "playwright-core";
 import chromium from "@sparticuz/chromium-min";
 import puppeteer from "puppeteer-core";
 
