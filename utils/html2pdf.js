@@ -1,20 +1,22 @@
 import qr from "qrcode";
 import playwright from "playwright-core";
 import chromium from "@sparticuz/chromium-min";
+import puppeteer from "puppeteer-core";
 
 const html2pdf = async (containers, country, station) => {
-  const browser = await playwright.chromium.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(
-      "https://github.com/Sparticuz/chromium/releases/download/v110.0.1/chromium-v110.0.1-pack.tar",
-    ),
-    headless: chromium.headless === "true",
-    ignoreHTTPSErrors: true,
-  });
+  const isLocal = process.env.AWS_EXECUTION_ENV === undefined;
+  const browser = isLocal
+    ? await require("puppeteer").launch()
+    : await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(
+        "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar",
+      ),
+      headless: 'true',
+    });
 
-  const context = await browser.newContext();
-  const page = await context.newPage();
+  const page = await browser.newPage();
 
   const qrMaker = async (counter) => {
     const qrCode = qr.toString(counter, {
@@ -115,7 +117,6 @@ const html2pdf = async (containers, country, station) => {
       },
     });
 
-    await context.close();
     await browser.close();
     // convert pdf to base64
     const base64 = pdf.toString("base64");
