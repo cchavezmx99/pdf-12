@@ -14,9 +14,9 @@ importers:
       prismjs:
         specifier: 1.17.1
         version: 1.17.1
-      puppeteer:
+      puppeteer-core:
         specifier: 21.5.0
-        version: 21.5.0(encoding@0.1.13)(typescript@4.9.5)
+        version: 21.5.0(encoding@0.1.13)
       qrcode:
         specifier: 1.5.1
         version: 1.5.1
@@ -42,6 +42,9 @@ importers:
       eslint-config-next:
         specifier: 13.2.1
         version: 13.2.1(eslint@8.34.0)(typescript@4.9.5)
+      puppeteer:
+        specifier: 21.5.0
+        version: 21.5.0(encoding@0.1.13)(typescript@4.9.5)
       typescript:
         specifier: 4.9.5
         version: 4.9.5
@@ -485,28 +488,6 @@ packages:
 
   bare-events@2.5.4:
     resolution: {integrity: sha512-+gFfDkR8pj4/TrWCGUGWmJIkBwuxPS5F+a5yWjOHQt2hHvNZd5YLzadjmDUtFmMM4y429bnKLa8bYBMHcYdnQA==}
-
-  bare-fs@4.0.1:
-    resolution: {integrity: sha512-ilQs4fm/l9eMfWY2dY0WCIUplSUp7U0CT1vrqMg1MUdeZl4fypu5UP0XcDBK5WBQPJAKP1b7XEodISmekH/CEg==}
-    engines: {bare: '>=1.7.0'}
-
-  bare-os@3.4.0:
-    resolution: {integrity: sha512-9Ous7UlnKbe3fMi7Y+qh0DwAup6A1JkYgPnjvMDNOlmnxNRQvQ/7Nst+OnUQKzk0iAT0m9BisbDVp9gCv8+ETA==}
-    engines: {bare: '>=1.6.0'}
-
-  bare-path@3.0.0:
-    resolution: {integrity: sha512-tyfW2cQcB5NN8Saijrhqn0Zh7AnFNsnczRcuWODH0eYAXBsJ5gVxAUuNr7tsHSC6IZ77cA0SitzT+s47kot8Mw==}
-
-  bare-stream@2.6.4:
-    resolution: {integrity: sha512-G6i3A74FjNq4nVrrSTUz5h3vgXzBJnjmWAVlBWaZETkgu+LgKd7AiyOml3EDJY1AHlIbBHKDXE+TUT53Ff8OaA==}
-    peerDependencies:
-      bare-buffer: '*'
-      bare-events: '*'
-    peerDependenciesMeta:
-      bare-buffer:
-        optional: true
-      bare-events:
-        optional: true
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -2206,9 +2187,6 @@ packages:
   tar-fs@3.0.4:
     resolution: {integrity: sha512-5AFQU8b9qLfZCX9zp2duONhPmZv0hGYiBPJsyUdqMjzq/mqVpy/rEUSeHk1+YitmxugaptgBh5oDGU3VsAJq4w==}
 
-  tar-fs@3.0.8:
-    resolution: {integrity: sha512-ZoROL70jptorGAlgAYiLoBLItEKw/fUxg9BSYK/dF/GAGYFJOJJJMvjPAKDJraCXFwadD456FCuvLWgfhMsPwg==}
-
   tar-stream@3.1.7:
     resolution: {integrity: sha512-qJj60CXt7IU1Ffyc3NJMjh6EkuCFej46zUqJ4J7pqYlThyd9bO0XBTmcOIhSzZJVWfsLks0+nle/j538YAW9RQ==}
 
@@ -2720,9 +2698,8 @@ snapshots:
   '@sparticuz/chromium-min@119.0.2':
     dependencies:
       follow-redirects: 1.15.9
-      tar-fs: 3.0.8
+      tar-fs: 3.0.4
     transitivePeerDependencies:
-      - bare-buffer
       - debug
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
@@ -2922,30 +2899,6 @@ snapshots:
   balanced-match@1.0.2: {}
 
   bare-events@2.5.4:
-    optional: true
-
-  bare-fs@4.0.1:
-    dependencies:
-      bare-events: 2.5.4
-      bare-path: 3.0.0
-      bare-stream: 2.6.4(bare-events@2.5.4)
-    transitivePeerDependencies:
-      - bare-buffer
-    optional: true
-
-  bare-os@3.4.0:
-    optional: true
-
-  bare-path@3.0.0:
-    dependencies:
-      bare-os: 3.4.0
-    optional: true
-
-  bare-stream@2.6.4(bare-events@2.5.4):
-    dependencies:
-      streamx: 2.22.0
-    optionalDependencies:
-      bare-events: 2.5.4
     optional: true
 
   base64-js@1.5.1: {}
@@ -3702,7 +3655,7 @@ snapshots:
 
   extract-zip@2.0.1:
     dependencies:
-      debug: 4.3.4
+      debug: 4.4.0
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -3836,7 +3789,7 @@ snapshots:
     dependencies:
       basic-ftp: 5.0.5
       data-uri-to-buffer: 6.0.2
-      debug: 4.3.4
+      debug: 4.4.0
     transitivePeerDependencies:
       - supports-color
 
@@ -3958,7 +3911,7 @@ snapshots:
   http-proxy-agent@7.0.2:
     dependencies:
       agent-base: 7.1.3
-      debug: 4.3.4
+      debug: 4.4.0
     transitivePeerDependencies:
       - supports-color
 
@@ -3967,7 +3920,7 @@ snapshots:
   https-proxy-agent@7.0.6:
     dependencies:
       agent-base: 7.1.3
-      debug: 4.3.4
+      debug: 4.4.0
     transitivePeerDependencies:
       - supports-color
 
@@ -4469,7 +4422,7 @@ snapshots:
     dependencies:
       '@tootallnate/quickjs-emscripten': 0.23.0
       agent-base: 7.1.3
-      debug: 4.3.4
+      debug: 4.4.0
       get-uri: 6.0.4
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
@@ -4568,7 +4521,7 @@ snapshots:
   proxy-agent@6.3.1:
     dependencies:
       agent-base: 7.1.3
-      debug: 4.3.4
+      debug: 4.4.0
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
       lru-cache: 7.18.3
@@ -4860,7 +4813,7 @@ snapshots:
   socks-proxy-agent@8.0.5:
     dependencies:
       agent-base: 7.1.3
-      debug: 4.3.4
+      debug: 4.4.0
       socks: 2.8.3
     transitivePeerDependencies:
       - supports-color
@@ -5028,16 +4981,6 @@ snapshots:
       mkdirp-classic: 0.5.3
       pump: 3.0.2
       tar-stream: 3.1.7
-
-  tar-fs@3.0.8:
-    dependencies:
-      pump: 3.0.2
-      tar-stream: 3.1.7
-    optionalDependencies:
-      bare-fs: 4.0.1
-      bare-path: 3.0.0
-    transitivePeerDependencies:
-      - bare-buffer
 
   tar-stream@3.1.7:
     dependencies:
