@@ -12,7 +12,8 @@ const html2pdf = async (containers, country, station) => {
       executablePath: await chromium.executablePath(
         "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar",
       ),
-      headless: 'true',
+      headless: "true",
+      ignoreHTTPSErrors: true,
     });
 
   const page = await browser.newPage();
