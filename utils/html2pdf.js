@@ -4,12 +4,12 @@ import chromium from "@sparticuz/chromium-min";
 
 const html2pdf = async (containers, country, station) => {
   const browser = await playwright.chromium.launch({
-    args: ["--disable-gpu", "--no-sandbox", "--single-process", "--no-zygote"],
+    args: chromium.args,
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath(
       "https://github.com/Sparticuz/chromium/releases/download/v110.0.1/chromium-v110.0.1-pack.tar",
     ),
-    headless: true,
+    headless: chromium.headless === "true",
     ignoreHTTPSErrors: true,
   });
 
