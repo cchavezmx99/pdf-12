@@ -12,10 +12,12 @@ const html2pdf = async (containers, country, station) => {
       executablePath: await chromium.executablePath(
         "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar",
       ),
-      headless: "true",
+      headless: chorium.headless,
       ignoreHTTPSErrors: true,
     });
 
+  console.log("Launching browser");
+  console.log("IsLocal", isLocal);
   const page = await browser.newPage();
 
   const qrMaker = async (counter) => {
